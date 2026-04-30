@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marketing digitale: che Gallo sei?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #F0F0F5;
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .qw {
+      background: #fff;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.08);
+      margin: 0 auto;
+    }
+
+    /* HERO */
+    .hero {
+      background: #fff;
+      padding: 2rem 1.5rem 1.25rem;
+      border-bottom: 2px solid #f0f0f0;
+      text-align: center;
+    }
+    .hero-illo {
+      font-size: 52px;
+      line-height: 1;
+      margin-bottom: .6rem;
+      display: block;
+      animation: wiggle 3s ease-in-out infinite;
+    }
+    @keyframes wiggle {
+      0%,100% { transform: rotate(-4deg); }
+      50%      { transform: rotate(4deg); }
+    }
+    .hero-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #1a1a2e;
+      line-height: 1.2;
+      margin-bottom: .3rem;
+    }
+    .hero-title span { color: #F4A225; }
+    .hero-sub {
+      font-size: 13px;
+      font-weight: 600;
+      color: #aaa;
+    }
+
+    /* PROGRESS */
+    .prog-area {
+      padding: .85rem 1.5rem .6rem;
+      background: #fff;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .prog-row { display: flex; align-items: center; gap: 10px; }
+    .prog-track {
+      flex: 1; height: 6px;
+      background: #f0f0f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .prog-fill {
+      height: 100%;
+      background: #F4A225;
+      border-radius: 999px;
+      transition: width .5s cubic-bezier(.34,1.56,.64,1);
+    }
+    .prog-num {
+      font-size: 12px;
+      font-weight: 800;
+      color: #bbb;
+      white-space: nowrap;
+    }
+
+    /* CARD */
+    .qcard { padding: 1.5rem; }
+
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #FFF3DC;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #C47F0A;
+      margin-bottom: .85rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .step-dot {
+      width: 6px; height: 6px;
+      background: #F4A225;
+      border-radius: 50%;
+    }
+
+    .speech {
+      background: #F7F7FF;
+      border-radius: 16px 16px 16px 4px;
+      padding: 1rem 1.1rem;
+      margin-bottom: 1.25rem;
+      border: 1.5px solid #EBEBFF;
+    }
+    .q-text {
+      font-size: 16px;
+      font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.4;
+    }
+
+    .field-lbl {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: #bbb;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .q-input {
+      width: 100%;
+      background: #FAFAFA;
+      border: 1.5px solid #E8E8E8;
+      border-radius: 12px;
+      padding: .75rem 1rem;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a2e;
+      font-family: 'Nunito', sans-serif;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .q-input::placeholder { color: #ccc; font-weight: 400; }
+    .q-input:focus {
+      border-color: #F4A225;
+      box-shadow: 0 0 0 3px rgba(244,162,37,.12);
+    }
+
+    .opts { display: flex; flex-direction: column; gap: 8px; }
+    .opt {
+      background: #FAFAFA;
+      border: 1.5px solid #E8E8E8;
+      border-radius: 12px;
+      padding: .85rem 1rem;
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a2e;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all .15s;
+      line-height: 1.35;
+    }
+    .opt:hover { background: #FFF3DC; border-color: #F4A225; }
+    .opt.sel {
+      background: #FFF3DC;
+      border-color: #F4A225;
+      box-shadow: 0 2px 8px rgba(244,162,37,.18);
+    }
+    .odot {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid #ddd;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: all .15s;
+    }
+    .opt.sel .odot { background: #F4A225; border-color: #F4A225; }
+    .odi {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      display: none;
+    }
+    .opt.sel .odi { display: block; }
+
+    .btn-main {
+      width: 100%;
+      background: #1a1a2e;
+      border: none;
+      border-radius: 12px;
+      padding: .9rem;
+      font-size: 15px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      letter-spacing: .03em;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 1.25rem;
+      transition: all .18s;
+    }
+    .btn-main:hover { background: #2d2d4e; transform: translateY(-1px); }
+    .btn-main:active { transform: scale(.98); }
+    .btn-main:disabled { opacity: .3; cursor: not-allowed; transform: none; }
+
+    .err {
+      font-size: 12px;
+      font-weight: 700;
+      color: #E05555;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .step { display: none; }
+    .step.active { display: block; }
+
+    /* NAV BUTTONS */
+    .nav-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 1.25rem;
+    }
+    .btn-back {
+      flex: 0 0 auto;
+      background: #f5f5f5;
+      border: none;
+      border-radius: 12px;
+      padding: .9rem 1.1rem;
+      font-size: 15px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      color: #888;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .btn-back:hover { background: #eee; }
+    .btn-next {
+      flex: 1;
+      background: #1a1a2e;
+      border: none;
+      border-radius: 12px;
+      padding: .9rem;
+      font-size: 15px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      color: #fff;
+      cursor: pointer;
+      transition: all .18s;
+    }
+    .btn-next:hover { background: #2d2d4e; transform: translateY(-1px); }
+    .btn-next:active { transform: scale(.98); }
+    .btn-next:disabled { opacity: .3; cursor: not-allowed; transform: none; }
+
+    /* LOADING */
+    .spin-wrap {
+      text-align: center;
+      padding: 2.5rem 0;
+      display: none;
+    }
+    .cauldron {
+      font-size: 52px;
+      display: block;
+      animation: bounce .55s ease infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0) scale(1); }
+      to   { transform: translateY(-10px) scale(1.08); }
+    }
+    .spin-txt {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-top: .75rem;
+    }
+    .spin-sub {
+      font-size: 12px;
+      font-weight: 600;
+      color: #bbb;
+      margin-top: .2rem;
+    }
+
+    /* RESULT */
+    .rcard {
+      padding: 1.5rem;
+      display: none;
+    }
+    .r-char {
+      font-size: 72px;
+      display: block;
+      text-align: center;
+      animation: float 2.5s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    .r-badge {
+      display: block;
+      text-align: center;
+      background: #F7F7FF;
+      border: 1.5px solid #EBEBFF;
+      border-radius: 999px;
+      padding: 4px 16px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #6B6BCC;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: .75rem auto .25rem;
+      width: fit-content;
+    }
+    .r-name {
+      font-size: 28px;
+      font-weight: 900;
+      color: #1a1a2e;
+      margin-bottom: .2rem;
+      text-align: center;
+    }
+    .r-tagline {
+      font-size: 13px;
+      font-weight: 700;
+      color: #F4A225;
+      margin-bottom: .75rem;
+      font-style: italic;
+      text-align: center;
+    }
+    .r-score {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #bbb;
+      margin-bottom: 1rem;
+      letter-spacing: .04em;
+    }
+    .r-divider {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: .85rem 0;
+    }
+    .r-divider-line { flex: 1; height: 1.5px; background: #f0f0f0; }
+    .r-dot { width: 10px; height: 10px; background: #F4A225; border-radius: 50%; }
+
+    .r-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #bbb;
+      margin-bottom: .5rem;
+    }
+    .r-desc {
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+      line-height: 1.65;
+      margin-bottom: 1rem;
+      background: #FAFAFA;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .r-list {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+    .r-list li {
+      font-size: 13px;
+      font-weight: 700;
+      color: #444;
+      padding: .35rem 0;
+      border-bottom: 1px solid #f5f5f5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .r-list li::before {
+      content: '•';
+      color: #F4A225;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .r-manifesto {
+      background: #FFF3DC;
+      border-radius: 12px;
+      padding: .85rem 1rem;
+      font-size: 14px;
+      font-weight: 800;
+      color: #C47F0A;
+      font-style: italic;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .r-next {
+      background: #F7F7FF;
+      border-radius: 12px;
+      padding: .85rem 1rem;
+      font-size: 13px;
+      font-weight: 700;
+      color: #5555BB;
+      line-height: 1.5;
+    }
+    .r-next strong { display: block; margin-bottom: .2rem; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+<div class="qw">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-illo">⚔️</span>
+    <div class="hero-title">Marketing digitale:<br><span>che Gallo sei?</span></div>
+    <div class="hero-sub">6 domande · scopri il tuo profilo</div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="prog-area">
+    <div class="prog-row">
+      <div class="prog-track"><div class="prog-fill" id="pf" style="width:0%"></div></div>
+      <div class="prog-num" id="pl">0 / 6</div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="qcard" id="qcard">
+
+    <!-- Q1: Tracking coverage -->
+    <div class="step active" id="s1">
+      <div class="step-pill"><div class="step-dot"></div>Domanda 1 di 7</div>
+      <div class="speech"><div class="q-text">Hai visibilità completa delle conversioni cross-device (iOS, Safari, adblocker inclusi)? 📡</div></div>
+      <div class="opts">
+        <button class="opt" onclick="pickScore(this,1,10)"><span class="odot"><span class="odi"></span></span>Sì, quasi totale (&gt;90%)</button>
+        <button class="opt" onclick="pickScore(this,1,5)"><span class="odot"><span class="odi"></span></span>Parzialmente</button>
+        <button class="opt" onclick="pickScore(this,1,0)"><span class="odot"><span class="odi"></span></span>No / non saprei</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-next" id="btn1" onclick="goStep(2)" disabled style="width:100%">Continua →</button>
+      </div>
+    </div>
+
+    <!-- Q2: Server-side -->
+    <div class="step" id="s2">
+      <div class="step-pill"><div class="step-dot"></div>Domanda 2 di 7</div>
+      <div class="speech"><div class="q-text">Utilizzi già un setup server-side per il tracking? 🖥️</div></div>
+      <div class="opts">
+        <button class="opt" onclick="pickScore(this,2,10)"><span class="odot"><span class="odi"></span></span>Sì, già in produzione</button>
+        <button class="opt" onclick="pickScore(this,2,5)"><span class="odot"><span class="odi"></span></span>In fase di valutazione</button>
+        <button class="opt" onclick="pickScore(this,2,0)"><span class="odot"><span class="odi"></span></span>No</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goStep(1)">←</button>
+        <button class="btn-next" id="btn2" onclick="goStep(3)" disabled>Continua →</button>
+      </div>
+    </div>
+
+    <!-- Q3: Data consistency -->
+    <div class="step" id="s3">
+      <div class="step-pill"><div class="step-dot"></div>Domanda 3 di 7</div>
+      <div class="speech"><div class="q-text">I tuoi dati sono coerenti tra analytics, piattaforme media e CRM? 🔗</div></div>
+      <div class="opts">
+        <button class="opt" onclick="pickScore(this,3,10)"><span class="odot"><span class="odi"></span></span>Sì</button>
+        <button class="opt" onclick="pickScore(this,3,5)"><span class="odot"><span class="odi"></span></span>Spesso no</button>
+        <button class="opt" onclick="pickScore(this,3,0)"><span class="odot"><span class="odi"></span></span>Non lo so</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goStep(2)">←</button>
+        <button class="btn-next" id="btn3" onclick="goStep(4)" disabled>Continua →</button>
+      </div>
+    </div>
+
+    <!-- Q4: First-party data -->
+    <div class="step" id="s4">
+      <div class="step-pill"><div class="step-dot"></div>Domanda 4 di 7</div>
+      <div class="speech"><div class="q-text">Riesci ad attivare efficacemente le tue audience first-party (CRM, display, search, ecc.)? 🎯</div></div>
+      <div class="opts">
+        <button class="opt" onclick="pickScore(this,4,10)"><span class="odot"><span class="odi"></span></span>Sì, regolarmente</button>
+        <button class="opt" onclick="pickScore(this,4,5)"><span class="odot"><span class="odi"></span></span>Parzialmente</button>
+        <button class="opt" onclick="pickScore(this,4,0)"><span class="odot"><span class="odi"></span></span>No</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goStep(3)">←</button>
+        <button class="btn-next" id="btn4" onclick="goStep(5)" disabled>Continua →</button>
+      </div>
+    </div>
+
+    <!-- Q5: Impatto business -->
+    <div class="step" id="s5">
+      <div class="step-pill"><div class="step-dot"></div>Domanda 5 di 7</div>
+      <div class="speech"><div class="q-text">Pensi di star perdendo performance (ROAS / conversioni) per limiti di tracking? 📉</div></div>
+      <div class="opts">
+        <button class="opt" onclick="pickScore(this,5,10)"><span class="odot"><span class="odi"></span></span>Sì, chiaramente</button>
+        <button class="opt" onclick="pickScore(this,5,5)"><span class="odot"><span class="odi"></span></span>Forse</button>
+        <button class="opt" onclick="pickScore(this,5,0)"><span class="odot"><span class="odi"></span></span>No</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goStep(4)">←</button>
+        <button class="btn-next" id="btn5" onclick="goStep(6)" disabled>Continua →</button>
+      </div>
+    </div>
+
+    <!-- Q6: Email -->
+    <div class="step" id="s6">
+      <div class="step-pill"><div class="step-dot"></div>Domanda 6 di 7</div>
+      <div class="speech"><div class="q-text">Come ti troviamo dopo la fiera? 📬</div></div>
+      <label class="field-lbl" for="em">La tua email</label>
+      <input class="q-input" type="email" id="em" placeholder="nome@azienda.com" autocomplete="email"/>
+      <div class="err" id="em-err">Inserisci un'email valida!</div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goStep(5)">←</button>
+        <button class="btn-next" id="btn6" onclick="goStep(7)">Continua →</button>
+      </div>
+    </div>
+
+    <!-- Q7: Ruolo -->
+    <div class="step" id="s7">
+      <div class="step-pill"><div class="step-dot"></div>Domanda 7 di 7</div>
+      <div class="speech"><div class="q-text">Che ruolo hai in azienda? 🏢</div></div>
+      <div class="opts" id="opts7">
+        <button class="opt" onclick="pickRole(this,'CEO / Founder')"><span class="odot"><span class="odi"></span></span>CEO / Founder</button>
+        <button class="opt" onclick="pickRole(this,'Marketing & Comunicazione')"><span class="odot"><span class="odi"></span></span>Marketing & Comunicazione</button>
+        <button class="opt" onclick="pickRole(this,'Sales & Business Dev')"><span class="odot"><span class="odi"></span></span>Sales & Business Dev</button>
+        <button class="opt" onclick="pickRole(this,'Operations & Finance')"><span class="odot"><span class="odi"></span></span>Operations & Finance</button>
+        <button class="opt" onclick="pickRole(this,'Tech & Prodotto')"><span class="odot"><span class="odi"></span></span>Tech & Prodotto</button>
+        <button class="opt" onclick="pickRole(this,'Altro')"><span class="odot"><span class="odi"></span></span>Altro</button>
+      </div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goStep(6)">←</button>
+        <button class="btn-next" id="btn7" onclick="submitQ()" disabled>Scopri chi sei →</button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="spin-wrap" id="sw">
+      <span class="cauldron">🪄</span>
+      <div class="spin-txt">La pozione è in preparazione...</div>
+      <div class="spin-sub">Panoramix sta analizzando i tuoi dati</div>
+    </div>
+
+  </div>
+
+  <!-- RESULT -->
+  <div class="rcard" id="rc">
+    <img id="r-img" src="" alt="personaggio" style="width:180px;height:180px;object-fit:contain;display:block;margin:0 auto .5rem;animation:float 2.5s ease-in-out infinite;"/>
+    <div class="r-badge">Il tuo profilo è</div>
+    <div class="r-name" id="r-name">—</div>
+    <div class="r-tagline" id="r-tagline">—</div>
+    <div class="r-score" id="r-score"></div>
+
+    <div class="r-divider"><div class="r-divider-line"></div><div class="r-dot"></div><div class="r-divider-line"></div></div>
+
+    <div class="r-section-title">Chi sei</div>
+    <div class="r-desc" id="r-desc">—</div>
+
+    <div class="r-section-title">Come lavori</div>
+    <ul class="r-list" id="r-list"></ul>
+
+    <div class="r-manifesto" id="r-manifesto">—</div>
+
+    <div class="r-next">
+      <strong>🚀 Prossimo step</strong>
+      <span id="r-next">—</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const TOTAL = 7;
+  let userEmail = '';
+  let userRole  = '';
+  let scores    = {};
+
+  // ─── PROFILI ───────────────────────────────────
+  const profiles = [
+    {
+      min: 0, max: 10,
+      img: 'romano.png', name: 'Romano Smarrito',
+      tagline: '"Tracking? Gli dei provvederanno."',
+      desc: 'Il tuo tracking è come l\'esercito romano a Gerico: tanto rumore, pochi risultati. Non sai cosa succede sui tuoi canali e le decisioni le prendi a istinto — sperando che gli algoritmi facciano il resto.',
+      list: ['Nessuna visibilità cross-device', 'Setup client-side non monitorato', 'Dati inconsistenti o assenti', 'Audience first-party non attivate'],
+      manifesto: '"Tracking? Gli dei provvederanno."',
+      next: 'Inizia dal principio: un audit del tuo tracking attuale. Senza dati affidabili, ogni budget è sprecato.'
+    },
+    {
+      min: 11, max: 20,
+      img: 'abraracourcix.png', name: 'Abraracourcix — Capo del Villaggio',
+      tagline: '"Il mio team se ne occupa… credo."',
+      desc: 'Hai gli strumenti, ma non li governi davvero. Qualcosa funziona, qualcosa no — e spesso non sai distinguere le due cose. Sei sollevato sullo scudo, ma lo scudo balla.',
+      list: ['Tracking parziale e non validato', 'Server-side ancora da valutare', 'CRM e analytics non allineati', 'First-party data sottoutilizzati'],
+      manifesto: '"Il mio team se ne occupa… credo."',
+      next: 'Metti ordine nella tua infrastruttura dati. Inizia con una data quality review e definisci ownership chiare.'
+    },
+    {
+      min: 21, max: 30,
+      img: 'asterix.png', name: 'Asterix Stratega',
+      tagline: '"Datemi i dati giusti e vinco la battaglia."',
+      desc: 'Piccolo ma temibile. Hai consapevolezza dei tuoi limiti e stai costruendo una strategia. Non sei ancora al massimo, ma usi la testa meglio di chi ha tre volte il tuo budget.',
+      list: ['Tracking cross-device parzialmente coperto', 'Server-side in valutazione', 'Prime attivazioni first-party attive', 'Buona consapevolezza dei gap'],
+      manifesto: '"Datemi i dati giusti e vinco la battaglia."',
+      next: 'È il momento di passare al server-side. Un setup solido ti darà il vantaggio competitivo che cerchi.'
+    },
+    {
+      min: 31, max: 40,
+      img: 'obelix.png', name: 'Obelix Data-Driven',
+      tagline: '"È semplice: lo vedo dai dati."',
+      desc: 'Sei caduto nel calderone del tracking da piccolo. Le tue decisioni sono basate su dati coerenti, le tue audience sono attive e sai già dove stai perdendo performance — e come recuperarle.',
+      list: ['Alta copertura cross-device', 'Server-side in produzione o quasi', 'CRM e media ben sincronizzati', 'Audience first-party regolarmente attivate'],
+      manifesto: '"È semplice: lo vedo dai dati."',
+      next: 'Scala ciò che funziona. Automatizza la data quality e porta il tuo stack al livello successivo.'
+    },
+    {
+      min: 41, max: 50,
+      img: 'panoramix.png', name: 'Panoramix — Maestro della Pozione Digitale',
+      tagline: '"La pozione funziona solo se conosci ogni ingrediente."',
+      desc: 'Il saggio del villaggio digitale. Hai visibilità totale, tracking server-side in produzione, dati coerenti su tutti i canali e audience first-party pienamente attivate. Sai che la vera forza è la governance.',
+      list: ['Copertura cross-device >90%', 'Server-side tracking operativo', 'Dati coerenti tra analytics, media e CRM', 'First-party data attivati su tutti i canali'],
+      manifesto: '"La pozione funziona solo se conosci ogni ingrediente."',
+      next: 'Condividi il metodo. La tua maturità è un vantaggio competitivo — ora è il momento di scalarlo.'
+    }
+  ];
+
+  // ─── PROGRESS ─────────────────────────────────
+  function upProg(step, completed) {
+    const done = completed !== undefined ? completed : step - 1;
+    document.getElementById('pf').style.width = (done / TOTAL * 100) + '%';
+    document.getElementById('pl').textContent = done + ' / ' + TOTAL;
+  }
+
+  // ─── NAVIGATION ───────────────────────────────
+  function goStep(n) {
+    if (n === 7) {
+      const v  = document.getElementById('em').value.trim();
+      const er = document.getElementById('em-err');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { er.style.display = 'block'; return; }
+      er.style.display = 'none';
+      userEmail = v;
+    }
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('s' + n).classList.add('active');
+    upProg(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ─── ROLE PICK ────────────────────────────────
+  function pickRole(btn, role) {
+    userRole = role;
+    document.querySelectorAll('#opts7 .opt').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    document.getElementById('btn7').disabled = false;
+  }
+
+  // ─── SCORE PICK ───────────────────────────────
+  function pickScore(btn, stepNum, pts) {
+    scores[stepNum] = pts;
+    const stepEl = document.getElementById('s' + stepNum);
+    stepEl.querySelectorAll('.opt').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    const nextBtn = document.getElementById('btn' + stepNum);
+    if (nextBtn) nextBtn.disabled = false;
+  }
+
+  // ─── SUBMIT ───────────────────────────────────
+  function submitQ() {
+    document.getElementById('s7').style.display = 'none';
+    document.getElementById('sw').style.display  = 'block';
+    upProg(7, 7);
+
+    const total = Object.values(scores).reduce((a, b) => a + b, 0);
+    const profile = profiles.find(p => total >= p.min && total <= p.max) || profiles[0];
+
+    setTimeout(() => {
+      showResult(total, profile);
+    }, 2200);
+  }
+
+  // ─── SHOW RESULT ──────────────────────────────
+  function showResult(total, p) {
+    document.getElementById('qcard').style.display = 'none';
+    const rc = document.getElementById('rc');
+    rc.style.display = 'block';
+
+    document.getElementById('r-img').src            = p.img;
+    document.getElementById('r-img').alt            = p.name;
+    document.getElementById('r-name').textContent    = p.name;
+    document.getElementById('r-tagline').textContent = p.tagline;
+    document.getElementById('r-score').textContent   = 'Punteggio: ' + total + ' / 50';
+    document.getElementById('r-desc').textContent    = p.desc;
+    document.getElementById('r-manifesto').textContent = p.manifesto;
+    document.getElementById('r-next').textContent    = p.next;
+
+    const list = document.getElementById('r-list');
+    list.innerHTML = '';
+    p.list.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      list.appendChild(li);
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('em').addEventListener('keydown', e => {
+    if (e.key === 'Enter') goStep(7);
+  });
+</script>
+</body>
+</html>

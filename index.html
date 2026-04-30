@@ -575,6 +575,10 @@
 </div>
 
 <script>
+  // ─── CONFIGURA QUI IL TUO URL APPS SCRIPT ─────
+  const WEBHOOK_URL = 'INCOLLA_QUI_IL_TUO_URL_APPS_SCRIPT';
+  // ──────────────────────────────────────────────
+
   const TOTAL = 7;
   let userEmail = '';
   let userRole  = '';
@@ -675,8 +679,24 @@
     document.getElementById('sw').style.display  = 'block';
     upProg(7, 7);
 
-    const total = Object.values(scores).reduce((a, b) => a + b, 0);
+    const total   = Object.values(scores).reduce((a, b) => a + b, 0);
     const profile = profiles.find(p => total >= p.min && total <= p.max) || profiles[0];
+
+    // Invia dati a Google Sheets
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: userEmail,
+        role:  userRole,
+        q1:    scores[1] ?? '',
+        q2:    scores[2] ?? '',
+        q3:    scores[3] ?? '',
+        q4:    scores[4] ?? '',
+        q5:    scores[5] ?? ''
+      })
+    }).catch(err => console.warn('Sheet error:', err));
 
     setTimeout(() => {
       showResult(total, profile);
